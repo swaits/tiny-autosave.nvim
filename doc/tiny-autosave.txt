@@ -1,0 +1,61 @@
+*tiny-autosave.txt*  Auto-save buffers on InsertLeave and FocusLost
+
+Author: Stephen Waits <https://github.com/swaits>
+License: MIT
+
+==============================================================================
+CONTENTS                                          *tiny-autosave-contents*
+
+  1. Introduction ............................ |tiny-autosave-introduction|
+  2. Requirements ............................ |tiny-autosave-requirements|
+  3. Installation ............................ |tiny-autosave-installation|
+  4. Configuration ........................... |tiny-autosave-configuration|
+
+==============================================================================
+1. INTRODUCTION                                *tiny-autosave-introduction*
+
+tiny-autosave.nvim automatically saves modified buffers when leaving insert
+mode or when Neovim loses focus. Works out of the box with zero configuration.
+
+==============================================================================
+2. REQUIREMENTS                                *tiny-autosave-requirements*
+
+- Neovim >= 0.12
+
+==============================================================================
+3. INSTALLATION                                *tiny-autosave-installation*
+
+Add to your |vim.pack.add()| call: >lua
+
+    "https://github.com/swaits/tiny-autosave.nvim",
+<
+That's it. The plugin auto-loads with defaults. To customize, call setup: >lua
+
+    require("tiny-autosave").setup({
+      events = { "InsertLeave", "FocusLost" },
+    })
+<
+==============================================================================
+4. CONFIGURATION                              *tiny-autosave-configuration*
+
+                                                  *tiny-autosave.setup()*
+setup({opts})
+
+    Optional. The plugin works with defaults if you never call this.
+    Calling setup reconfigures the plugin with the given options.
+
+    All options shown with defaults: >lua
+
+        require("tiny-autosave").setup({
+          events = { "InsertLeave", "FocusLost" },
+        })
+<
+    Parameters: ~
+      {opts}  (table|nil) Configuration table
+
+    Fields: ~
+      {events}  (table) List of events that trigger auto-save.
+                  Default: { "InsertLeave", "FocusLost" }
+
+==============================================================================
+vim:tw=78:ts=8:ft=help:norl:
