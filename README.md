@@ -7,7 +7,7 @@ Zero config. ~15 lines of Lua.
 
 ## Features
 
-- Auto-saves on leaving insert mode and losing focus
+- Auto-saves on leaving insert mode, normal mode changes (undo, paste, etc.), and losing focus
 - Only saves normal file buffers (skips special buffers)
 - Configurable trigger events
 - Works out of the box — no setup call required
@@ -32,7 +32,7 @@ All options are optional. Call `setup()` only if you want to customize:
 
 ```lua
 require("tiny-autosave").setup({
-  events = { "InsertLeave", "FocusLost" }, -- events that trigger save
+  events = { "InsertLeave", "TextChanged", "FocusLost" }, -- events that trigger save
 })
 ```
 

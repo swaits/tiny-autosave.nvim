@@ -1,4 +1,4 @@
-*tiny-autosave.txt*  Auto-save buffers on InsertLeave and FocusLost
+*tiny-autosave.txt*  Auto-save buffers on text changes and focus loss
 
 Author: Stephen Waits <https://github.com/swaits>
 License: MIT
@@ -15,7 +15,8 @@ CONTENTS                                          *tiny-autosave-contents*
 1. INTRODUCTION                                *tiny-autosave-introduction*
 
 tiny-autosave.nvim automatically saves modified buffers when leaving insert
-mode or when Neovim loses focus. Works out of the box with zero configuration.
+mode, after normal mode changes (undo, paste, etc.), and when Neovim loses
+focus. Works out of the box with zero configuration.
 
 ==============================================================================
 2. REQUIREMENTS                                *tiny-autosave-requirements*
@@ -32,7 +33,7 @@ Add to your |vim.pack.add()| call: >lua
 That's it. The plugin auto-loads with defaults. To customize, call setup: >lua
 
     require("tiny-autosave").setup({
-      events = { "InsertLeave", "FocusLost" },
+      events = { "InsertLeave", "TextChanged", "FocusLost" },
     })
 <
 ==============================================================================
@@ -47,7 +48,7 @@ setup({opts})
     All options shown with defaults: >lua
 
         require("tiny-autosave").setup({
-          events = { "InsertLeave", "FocusLost" },
+          events = { "InsertLeave", "TextChanged", "FocusLost" },
         })
 <
     Parameters: ~
@@ -55,7 +56,7 @@ setup({opts})
 
     Fields: ~
       {events}  (table) List of events that trigger auto-save.
-                  Default: { "InsertLeave", "FocusLost" }
+                  Default: { "InsertLeave", "TextChanged", "FocusLost" }
 
 ==============================================================================
 vim:tw=78:ts=8:ft=help:norl:
