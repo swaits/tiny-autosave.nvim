@@ -9,13 +9,22 @@ function M.setup(opts)
 
   vim.api.nvim_create_autocmd(events, {
     group = vim.api.nvim_create_augroup("tiny-autosave", { clear = true }),
-    callback = function()
-      local name = vim.api.nvim_buf_get_name(0)
-      if name ~= "" and vim.fn.filereadable(name) == 0 then
+    nested = true,
+    callback = function(args)
+      local buf = args.buf
+      if vim.bo[buf].buftype ~= "" or not vim.bo[buf].modified then
+        return
+      end
+      local name = vim.api.nvim_buf_get_name(buf)
+      if name == "" then
+        return
+      end
+      if vim.fn.filereadable(name) == 0 then
         vim.fn.mkdir(vim.fn.fnamemodify(name, ":p:h"), "p")
       end
-      vim.cmd("silent! write")
-      vim.cmd("silent! wall")
+      vim.api.nvim_buf_call(buf, function()
+        vim.cmd("silent keepalt keepjumps write")
+      end)
     end,
   })
 end
